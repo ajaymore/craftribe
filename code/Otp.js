@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Alert,
+  KeyboardAvoidingView
+} from 'react-native';
 import { Button } from 'react-native-elements';
 
 var screenTitle = 'Confirm';
@@ -8,12 +15,14 @@ var correctOTP = 2356;
 class Otp extends React.Component {
   render() {
     return (
-      <View
+      <KeyboardAvoidingView
         style={{
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center'
         }}
+        behavior="padding"
+        enabled
       >
         <Text style={{ fontSize: 30, fontWeight: 'bold', paddingBottom: 60 }}>
           {screenTitle}
@@ -41,7 +50,7 @@ class Otp extends React.Component {
           />
         </View>
         <Button title={'Submit'} onPress={this.props.onChange} />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

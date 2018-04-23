@@ -1,17 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  KeyboardAvoidingView
+} from 'react-native';
 import { Button } from 'react-native-elements';
 
 class Login extends React.Component {
   render() {
     return (
-      <View
+      <KeyboardAvoidingView
         style={{
           flex: 1,
           backgroundColor: '#fff',
           alignItems: 'center',
           justifyContent: 'center'
         }}
+        behavior="padding"
+        enabled
       >
         <Image source={require('../assets/icon.png')} />
         <Text style={{ fontSize: 55, fontWeight: 'bold', marginBottom: 20 }}>
@@ -44,7 +53,7 @@ class Login extends React.Component {
           containerStyle={{ fontSize: 60, width: 200 }}
           title={'log in'}
         />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

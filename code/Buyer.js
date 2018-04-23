@@ -23,16 +23,14 @@ var photoStories = [
   {
     id: '1',
     title: 'Costumes and textiles',
-    mainPhoto:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/costumes-and-textiles-of-arunachal-pradesh-17-638.jpg?alt=media&token=f03cd7d9-8cdf-48bd-aace-c1993b1b25fe',
+    mainPhoto: 'https://s3.ap-south-1.amazonaws.com/craftribe/costumes.jpg',
     description:
-      'A handicraft, sometimes more precisely expressed as artisanal handicraft or handmade, is any of a wide variety of types of work where useful and decorative objects are made completely by hand or by using only simple tools.',
+      'The textile patterns found among the tribes of Arunachal Pradesh such as Adi, Mishmi and Apatani are invariably of geometric pattern. Most popular motives are Zig-Zag lines and angular designs. The floral and Zemorphic patterns are more or less  geometric form. The simple and straight lines, stripes and bands and similar other patterns are most common. Contrasts and combination of colours are quite popular. The highly disciplined Adi and Apatani concentrate on simple straight line, while the strongly individualistic Mishmis go in for great celebration of pattern.',
     details: [
       {
         order: 4,
         type: PHOTO_ITEM,
-        uri:
-          'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/17_7846.jpg?alt=media&token=c66ea7b8-8c11-4edd-9afe-325142c9eb79',
+        uri: 'https://s3.ap-south-1.amazonaws.com/craftribe/photostory.jpg',
         caption: 'The unique and exquisite craft!!',
         id: '1a'
       },
@@ -48,27 +46,31 @@ var photoStories = [
         type: QUOTE_ITEM,
         text: 'Simplicity is the Ultimate form of Sophistication.',
         id: '1d'
+      },
+      {
+        order: 2,
+        type: VIDEO_ITEM,
+        uri: 'https://s3.ap-south-1.amazonaws.com/craftribe/trailer_hd.mp4',
+        id: '1x'
       }
     ],
-    tags: ['Bamboo', 'Texttile']
+    tags: ['Costumes', 'Textile']
   },
   {
     id: '2',
-    title: 'Hornbill Hats',
-    mainPhoto:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/86.JPG?alt=media&token=34f5381e-b4c8-4016-b866-8fdac61d7f2f',
+    title: 'Bamboo and cane artifacts',
+    mainPhoto: 'https://s3.ap-south-1.amazonaws.com/craftribe/bamboo2.jpg',
     description:
       'A handicraft, sometimes more precisely expressed as artisanal handicraft or handmade, is any of a wide variety of types of work where useful and decorative objects are made completely by hand or by using only simple tools.',
     details: [],
-    tags: ['Bamboo', 'Handloom']
+    tags: ['Bamboo', 'Cane']
   },
   {
     id: '3',
-    title: 'Nyshi Gale',
-    mainPhoto:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/nyshi-gale2000.jpg?alt=media&token=fadaabcf-7b9b-4c9a-a3b5-672fedd9ed71',
+    title: 'Tribal ornaments',
+    mainPhoto: 'https://s3.ap-south-1.amazonaws.com/craftribe/ornaments.jpg',
     description:
-      'A handicraft, sometimes more precisely expressed as artisanal handicraft or handmade, is any of a wide variety of types of work where useful and decorative objects are made completely by hand or by using only simple tools.',
+      'Apart from the other important items, the tribes of Arunachal Pradesh are famous for their exquisite jewelleries made from their primary materials. They embellish these trinkets with other materials such as colourful beads, wild seeds, feathers of birds, green wings of beetles, brass, bones, ivory, silver and gold.',
     details: [],
     tags: ['Pottery']
   }
@@ -134,6 +136,28 @@ class Buyer extends React.Component {
             >
               <Card title={story.title} image={{ uri: story.mainPhoto }}>
                 <Text style={{ marginBottom: 10 }}>{story.description}</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                    marginBottom: 10
+                  }}
+                >
+                  {story.tags.map(tag => (
+                    <Text
+                      key={tag}
+                      style={{
+                        backgroundColor: 'green',
+                        padding: 5,
+                        marginRight: 5,
+                        borderRadius: 5,
+                        color: 'white'
+                      }}
+                    >
+                      {tag}
+                    </Text>
+                  ))}
+                </View>
               </Card>
             </TouchableOpacity>
           ))}

@@ -7,14 +7,16 @@ import {
   Alert,
   Dimensions,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Image
 } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import { PHOTO_ITEM, TEXT_ITEM, VIDEO_ITEM, QUOTE_ITEM } from './Buyer';
-import ScaledImage from './ScaledImage';
 import { Video } from 'expo';
+import Product from './Product';
 
-var screenTitle = 'Hornbill Hats ';
+var screenTitle = 'Costumes and textiles';
 
 const products = [
   {
@@ -24,7 +26,7 @@ const products = [
     quantityAvailable: 3,
     pricePerItem: 600,
     imageUrl:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/products%2Fprod_1.jpg?alt=media&token=51618cfc-cd39-4eab-bcde-bca57bb0d185'
+      'https://s3.ap-south-1.amazonaws.com/craftribe/products/prod_1.jpg'
   },
   {
     id: '1b',
@@ -33,7 +35,7 @@ const products = [
     quantityAvailable: 6,
     pricePerItem: 400,
     imageUrl:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/products%2Fprod_2.jpg?alt=media&token=d793dc29-9692-4136-8e92-f93a6f1ee58f'
+      'https://s3.ap-south-1.amazonaws.com/craftribe/products/prod_2.jpg'
   },
   {
     id: '1c',
@@ -42,7 +44,7 @@ const products = [
     quantityAvailable: 14,
     pricePerItem: 700,
     imageUrl:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/products%2Fprod_3.jpg?alt=media&token=1e123058-b733-496b-a640-a1c8e4810435'
+      'https://s3.ap-south-1.amazonaws.com/craftribe/products/prod_3.jpg'
   },
   {
     id: '1d',
@@ -51,7 +53,7 @@ const products = [
     quantityAvailable: 8,
     pricePerItem: 1000,
     imageUrl:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/products%2Fprod_4.jpg?alt=media&token=7c99b92d-cd33-43d2-a1f5-a42a01e8c77c'
+      'https://s3.ap-south-1.amazonaws.com/craftribe/products/prod_4.jpg'
   },
   {
     id: '1e',
@@ -60,19 +62,19 @@ const products = [
     quantityAvailable: 40,
     pricePerItem: 60,
     imageUrl:
-      'https://firebasestorage.googleapis.com/v0/b/craftribe-640c8.appspot.com/o/products%2Fprod_5.jpg?alt=media&token=d6eb1846-a98e-4984-83db-e77ac3d2d976'
+      'https://s3.ap-south-1.amazonaws.com/craftribe/products/prod_5.jpg'
   }
 ];
 
 class PhotoStory extends React.Component {
-  state = {
-    quantity: '0'
-  };
   _getView = item => {
     if (item.type == PHOTO_ITEM) {
       return (
         <View style={{ marginVertical: 10 }} key={item.id}>
-          <ScaledImage uri={item.uri} />
+          <Image
+            source={{ uri: item.uri }}
+            style={{ width: 400, height: 400 }}
+          />
           <Text
             style={[
               {
@@ -122,7 +124,7 @@ class PhotoStory extends React.Component {
           volume={1.0}
           isMuted={false}
           resizeMode="cover"
-          shouldPlay={false}
+          shouldPlay={true}
           style={{ width: Dimensions.get('window').width, height: 300 }}
         />
       );
@@ -150,137 +152,7 @@ class PhotoStory extends React.Component {
         {story.details.map(item => this._getView(item))}
         <ScrollView horizontal={true}>
           {products.map(product => (
-            <Card
-              key={product.id}
-              title={product.title}
-              containerStyle={{ marginRight: 0 }}
-              wrapperStyle={{ width: 200, height: 270 }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 100,
-                  height: 40
-                }}
-              >
-                <Icon
-                  name="minus-circle"
-                  type="material-community"
-                  color="#000"
-                  size={26}
-                  onPress={() => {
-                    if (!parseInt(this.state.quantity)) return;
-                    this.setState(state => {
-                      return { quantity: '' + (parseInt(state.quantity) - 1) };
-                    });
-                  }}
-                />
-                <TextInput
-                  value={this.state.quantity}
-                  onChangeText={quantity => {
-                    if (isNaN(quantity)) return;
-                    this.setState({ quantity });
-                  }}
-                  style={{
-                    paddingHorizontal: 2,
-                    borderRadius: 60,
-                    borderWidth: 1,
-                    backgroundColor: '#fff',
-                    color: '#000',
-                    textAlign: 'center',
-                    fontSize: 10,
-                    width: 30
-                  }}
-                  keyboardType={'numeric'}
-                  underlineColorAndroid={'transparent'}
-                />
-                <Icon
-                  name="plus-circle"
-                  type="material-community"
-                  color="#000"
-                  onPress={() => {
-                    this.setState(state => {
-                      return { quantity: '' + (parseInt(state.quantity) + 1) };
-                    });
-                  }}
-                  size={26}
-                />
-              </View>
-              <ScaledImage uri={product.imageUrl} />
-              <View
-                style={{
-                  position: 'absolute',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  bottom: 35,
-                  left: 5
-                }}
-              >
-                <TouchableOpacity onPress={() => {}}>
-                  <Icon
-                    name="cart-plus"
-                    type="material-community"
-                    color="orange"
-                    onPress={() => {}}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 8,
-                      fontWeight: 'bold',
-                      padding: 2,
-                      margin: 2,
-                      width: 55,
-                      textAlign: 'center',
-                      color: '#000'
-                    }}
-                  >
-                    Add to cart
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {}}>
-                  <Icon
-                    name="attach-money"
-                    type="material"
-                    color="orange"
-                    onPress={() => {}}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 8,
-                      fontWeight: 'bold',
-                      padding: 2,
-                      margin: 2,
-                      width: 55,
-                      textAlign: 'center',
-                      color: '#000'
-                    }}
-                  >
-                    Buy
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {}}>
-                  <Icon
-                    name="more"
-                    type="material-community"
-                    color="orange"
-                    onPress={() => {}}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 8,
-                      fontWeight: 'bold',
-                      padding: 2,
-                      margin: 2,
-                      width: 55,
-                      textAlign: 'center',
-                      color: '#000'
-                    }}
-                  >
-                    Know more
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </Card>
+            <Product key={product.id} product={product} />
           ))}
         </ScrollView>
         <View style={{ position: 'absolute', right: 10, bottom: 10 }}>
@@ -292,11 +164,15 @@ class PhotoStory extends React.Component {
             onPress={() => {}}
           />
         </View>
-        <Text style={{ fontSize: 20, textAlign: 'center' }}>Get in touch</Text>
-        <TextInput placeholder="Email Id" />
-        <TextInput placeholder="Message" />
-        <Button title="Send Message" />
-        <View style={{ height: 40 }} />
+        <KeyboardAvoidingView behavior="padding" enabled>
+          <Text style={{ fontSize: 20, textAlign: 'center' }}>
+            Get in touch
+          </Text>
+          <TextInput placeholder="Email Id" />
+          <TextInput placeholder="Message" />
+          <Button title="Send Message" />
+          <View style={{ height: 40 }} />
+        </KeyboardAvoidingView>
       </ScrollView>
     );
   }
